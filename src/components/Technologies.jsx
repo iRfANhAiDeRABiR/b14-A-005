@@ -4,6 +4,7 @@ import YourStack from './YourStack'
 
 const Technologies = () => {
   const [technologies, setTechnologies] = useState([])
+  const [selectedTechnologies, setSelectedTechnologies] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -27,6 +28,16 @@ const Technologies = () => {
         setLoading(false)
       })
   }, [])
+
+  const handleAddToStack = (technology) => {
+    const alreadyAdded = selectedTechnologies.some(
+      (item) => item.id === technology.id
+    )
+
+    if (!alreadyAdded) {
+      setSelectedTechnologies((previous) => [...previous, technology])
+    }
+  }
 
   return (
     <section id="technologies" className="pt-16 md:pt-20 pb-20 bg-white">
@@ -56,18 +67,26 @@ const Technologies = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                {technologies.map((technology) => (
-                  <TechnologyCard
-                    key={technology.id}
-                    technology={technology}
-                  />
-                ))}
+                {technologies.map((technology) => {
+                  const isAdded = selectedTechnologies.some(
+                    (item) => item.id === technology.id
+                  )
+
+                  return (
+                    <TechnologyCard
+                      key={technology.id}
+                      technology={technology}
+                      onAdd={handleAddToStack}
+                      isAdded={isAdded}
+                    />
+                  )
+                })}
               </div>
             )}
           </div>
 
           <div className="lg:sticky lg:top-24 self-start">
-            <YourStack />
+            <YourStack selectedTechnologies={selectedTechnologies} />
           </div>
         </div>
       </div>

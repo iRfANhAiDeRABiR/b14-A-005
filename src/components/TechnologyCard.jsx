@@ -31,7 +31,7 @@ const getBadgeStyle = (badge) => {
   }
 }
 
-const TechnologyCard = ({ technology }) => {
+const TechnologyCard = ({ technology, onAdd, isAdded }) => {
   const {
     name,
     icon,
@@ -81,9 +81,15 @@ const TechnologyCard = ({ technology }) => {
 
       <button
         type="button"
-        className="w-full bg-slate-950 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors mt-4"
+        onClick={() => onAdd(technology)}
+        disabled={isAdded}
+        className={`w-full py-2.5 rounded-lg text-sm font-medium transition-colors mt-4 ${
+          isAdded
+            ? 'bg-slate-200 text-slate-500 cursor-not-allowed'
+            : 'bg-slate-950 text-white hover:bg-slate-800'
+        }`}
       >
-        Add to Stack
+        {isAdded ? '✓ Added to Stack' : 'Add to Stack'}
       </button>
     </div>
   )
