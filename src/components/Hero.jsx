@@ -2,7 +2,7 @@ export default function Hero() {
   const brandGradient = 'bg-gradient-to-r from-orange-500 via-pink-500 to-violet-600'
 
   return (
-    <section className="relative overflow-hidden bg-white py-12 md:py-16 lg:py-20">
+    <section id="home" className="relative overflow-hidden bg-white py-12 md:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
