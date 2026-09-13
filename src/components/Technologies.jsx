@@ -39,6 +39,16 @@ const Technologies = () => {
     }
   }
 
+  const handleRemoveFromStack = (id) => {
+    setSelectedTechnologies((previous) =>
+      previous.filter((technology) => technology.id !== id)
+    )
+  }
+
+  const handleRemoveAll = () => {
+    setSelectedTechnologies([])
+  }
+
   return (
     <section id="technologies" className="pt-16 md:pt-20 pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,7 +96,11 @@ const Technologies = () => {
           </div>
 
           <div className="lg:sticky lg:top-24 self-start">
-            <YourStack selectedTechnologies={selectedTechnologies} />
+            <YourStack
+              selectedTechnologies={selectedTechnologies}
+              onRemove={handleRemoveFromStack}
+              onRemoveAll={handleRemoveAll}
+            />
           </div>
         </div>
       </div>

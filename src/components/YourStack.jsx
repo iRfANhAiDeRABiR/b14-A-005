@@ -1,4 +1,12 @@
-const YourStack = ({ selectedTechnologies = [] }) => {
+const YourStack = ({
+  selectedTechnologies = [],
+  onRemove,
+  onRemoveAll,
+}) => {
+  const sortedTechnologies = [...selectedTechnologies].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
+
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
       <div className="border-b border-slate-100 pb-3">
@@ -30,30 +38,51 @@ const YourStack = ({ selectedTechnologies = [] }) => {
           </p>
         </div>
       ) : (
-        <div className="mt-4 space-y-2.5 max-h-[480px] overflow-y-auto pr-1">
-          {selectedTechnologies.map((technology) => (
-            <div
-              key={technology.id}
-              className="flex items-center gap-3 p-2.5 rounded-xl border border-slate-100 bg-slate-50/60"
-            >
-              <div className="w-8 h-8 rounded-lg bg-white border border-slate-200/70 flex items-center justify-center p-1.5 shrink-0">
-                <img
-                  src={technology.icon}
-                  alt={`${technology.name} icon`}
-                  className="w-full h-full object-contain"
-                />
+        <>
+          <div className="mt-4 space-y-2.5 max-h-[480px] overflow-y-auto pr-1">
+            {sortedTechnologies.map((technology) => (
+              <div
+                key={technology.id}
+                className="flex items-center justify-between gap-3 border border-slate-200 rounded-lg p-3 bg-white"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center p-1.5 shrink-0">
+                    <img
+                      src={technology.icon}
+                      alt={`${technology.name} icon`}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="text-sm font-semibold text-slate-900 truncate">
+                      {technology.name}
+                    </h4>
+                    <p className="text-xs text-slate-500 truncate">
+                      {technology.category}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => onRemove(technology.id)}
+                  aria-label={`Remove ${technology.name}`}
+                  className="text-slate-400 hover:text-red-500 transition-colors text-lg font-bold px-1.5 leading-none"
+                >
+                  ×
+                </button>
               </div>
-              <div className="min-w-0 flex-1">
-                <h4 className="text-sm font-semibold text-slate-900 truncate">
-                  {technology.name}
-                </h4>
-                <p className="text-xs text-slate-500 truncate">
-                  {technology.category}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={onRemoveAll}
+            className="w-full border border-red-300 text-red-500 rounded-lg py-2 text-sm font-medium hover:bg-red-50 transition-colors mt-4"
+          >
+            Remove All
+          </button>
+        </>
       )}
     </div>
   )
