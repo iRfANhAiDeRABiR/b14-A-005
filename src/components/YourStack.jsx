@@ -65,7 +65,7 @@ const YourStack = ({
 
                 <button
                   type="button"
-                  onClick={() => onRemove(technology.id)}
+                  onClick={() => onRemove(technology)}
                   aria-label={`Remove ${technology.name}`}
                   className="text-slate-400 hover:text-red-500 transition-colors text-lg font-bold px-1.5 leading-none"
                 >

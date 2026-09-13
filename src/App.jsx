@@ -1,6 +1,8 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Technologies from './components/Technologies'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
@@ -8,6 +10,15 @@ function App() {
       <Navbar />
       <Hero />
       <Technologies />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        pauseOnHover
+        theme="light"
+      />
     </div>
   )
 }

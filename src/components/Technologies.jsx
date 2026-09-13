@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { toast } from 'react-toastify'
 import TechnologyCard from './TechnologyCard'
 import YourStack from './YourStack'
 
@@ -34,19 +35,29 @@ const Technologies = () => {
       (item) => item.id === technology.id
     )
 
-    if (!alreadyAdded) {
-      setSelectedTechnologies((previous) => [...previous, technology])
+    if (alreadyAdded) {
+      toast.warning(`${technology.name} is already in your stack.`)
+      return
     }
+
+    setSelectedTechnologies((previous) => [...previous, technology])
+    toast.success(`${technology.name} added to your stack!`)
   }
 
-  const handleRemoveFromStack = (id) => {
+  const handleRemoveFromStack = (technology) => {
     setSelectedTechnologies((previous) =>
-      previous.filter((technology) => technology.id !== id)
+      previous.filter((item) => item.id !== technology.id)
     )
+    toast.info(`${technology.name} removed from your stack.`)
   }
 
   const handleRemoveAll = () => {
+    if (selectedTechnologies.length === 0) {
+      return
+    }
+
     setSelectedTechnologies([])
+    toast.info('All technologies removed from your stack.')
   }
 
   return (
