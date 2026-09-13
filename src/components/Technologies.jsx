@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import TechnologyCard from './TechnologyCard'
+import YourStack from './YourStack'
 
 const Technologies = () => {
   const [technologies, setTechnologies] = useState([])
@@ -42,25 +43,33 @@ const Technologies = () => {
           </p>
         </div>
 
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-16 gap-3">
-            <div className="w-10 h-10 border-4 border-slate-200 border-t-orange-500 rounded-full animate-spin" />
-            <p className="text-slate-500 font-medium">Loading technologies...</p>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6 items-start">
+          <div className="min-w-0">
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="w-10 h-10 border-4 border-slate-200 border-t-orange-500 rounded-full animate-spin" />
+                <p className="text-slate-500 font-medium">Loading technologies...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center py-16 text-rose-500 font-medium">
+                {error}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                {technologies.map((technology) => (
+                  <TechnologyCard
+                    key={technology.id}
+                    technology={technology}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-        ) : error ? (
-          <div className="text-center py-16 text-rose-500 font-medium">
-            {error}
+
+          <div className="lg:sticky lg:top-24 self-start">
+            <YourStack />
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {technologies.map((technology) => (
-              <TechnologyCard
-                key={technology.id}
-                technology={technology}
-              />
-            ))}
-          </div>
-        )}
+        </div>
       </div>
     </section>
   )
